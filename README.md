@@ -14,19 +14,22 @@ phishing-guard/
 ├── extension/
 │   ├── src/
 │   │   ├── content.ts
+│   │   ├── background.ts
 │   │   └── popup.ts
 │   │
-│   ├── dist/
-│   │   ├── content.js
-│   │   └── popup.js
 │   │
 │   ├── load/
+│   │   ├── dist/
+│   │   │   ├── content.js
+│   │   │   ├── popup.js
+│   │   │   └── content.js
 │   │   ├── manifest.json
 │   │   ├── popup.html
-│   │   ├── popup.css
-│   │   └── content.js
+│   │   └── popup.css
+│   │
 │   │
 │   ├── package.json
+│   ├── package-lock.json
 │   └── tsconfig.json
 │
 └── model/
@@ -44,7 +47,7 @@ phishing-guard/
 Clone the repository to your computer:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/amrit-11022007/phishing-guard.git
 ```
 
 Move into the project:
@@ -141,10 +144,10 @@ Important settings include:
 {
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./dist",
+    "outDir": "./load/dist",
 
-    "target": "ES2020",
-    "module": "none",
+    "target": "esnext",
+    "module": "es2020",
 
     "lib": ["ES2020", "DOM"],
     "types": ["chrome"],
@@ -212,8 +215,7 @@ popup.js
 Example:
 
 ```ts
-const button =
-  document.querySelector<HTMLButtonElement>("#analyzeButton");
+const button = document.querySelector<HTMLButtonElement>("#analyzeButton");
 
 button?.addEventListener("click", () => {
   console.log("Button clicked");
@@ -249,8 +251,7 @@ It can read information from the webpage DOM.
 Example:
 
 ```ts
-const emailBody =
-  document.querySelector<HTMLElement>(".a3s.aiL");
+const emailBody = document.querySelector<HTMLElement>(".a3s.aiL");
 
 if (emailBody) {
   const text = emailBody.innerText;
@@ -261,11 +262,11 @@ if (emailBody) {
 
 The content script can be used to:
 
-* Read email content
-* Extract links
-* Analyze webpages
-* Display warnings
-* Communicate with the extension
+- Read email content
+- Extract links
+- Analyze webpages
+- Display warnings
+- Communicate with the extension
 
 ---
 
@@ -318,9 +319,7 @@ For example:
 load/
 ├── manifest.json
 ├── popup.html
-├── popup.css
-├── popup.js
-└── content.js
+└── dist
 ```
 
 If Chrome displays an error such as:
@@ -557,26 +556,26 @@ The normal workflow is:
 
 # Collaboration Rules
 
-* Do not directly push unfinished work to `main`.
-* Create a separate branch for each feature.
-* Pull the latest changes before starting work.
-* Keep commits focused.
-* Do not commit API keys or passwords.
-* Do not commit `.env` files.
-* Communicate before modifying another person's major feature.
-* Resolve merge conflicts carefully.
-* Test the extension before creating a Pull Request.
+- Do not directly push unfinished work to `main`.
+- Create a separate branch for each feature.
+- Pull the latest changes before starting work.
+- Keep commits focused.
+- Do not commit API keys or passwords.
+- Do not commit `.env` files.
+- Communicate before modifying another person's major feature.
+- Resolve merge conflicts carefully.
+- Test the extension before creating a Pull Request.
 
 ---
 
 ## Current Technology
 
-* TypeScript
-* JavaScript
-* HTML
-* CSS
-* Chrome Extension Manifest V3
-* Git
-* GitHub
+- TypeScript
+- JavaScript
+- HTML
+- CSS
+- Chrome Extension Manifest V3
+- Git
+- GitHub
 
 The project may later include a machine learning model and an API for phishing analysis.
