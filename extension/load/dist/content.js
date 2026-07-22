@@ -1,0 +1,29 @@
+function extractEmailData(container) {
+  const sender = container.querySelector("span[email]");
+  const senderEmail = sender?.getAttribute("email") ?? null;
+  const senderName = sender?.getAttribute("name") ?? null;
+  const subject =
+    container.querySelector("h2[data-thread-perm-id]")?.innerText ?? null;
+  const bodyEl = container.querySelector('div[role="listitem"] div.a3s');
+  const links = Array.from(bodyEl?.querySelectorAll("a[href]") ?? []).map(
+    (a) => a.href,
+  );
+  return {
+    senderEmail,
+    senderName,
+    subject,
+    body: bodyEl?.innerText ?? null,
+    links,
+  };
+}
+let lastSubject = null;
+const observer = new MutationObserver(() => {
+  const emailContainer = document.querySelector('div[role="main"]');
+  if (!emailContainer) return;
+  const data = extractEmailData(emailContainer);
+  if (data.subject && data.subject !== lastSubject) {
+    lastSubject = data.subject;
+    console.log("[Phishing Detector]", data);
+  }
+});
+observer.observe(document.body, { childList: true, subtree: true });
