@@ -7,7 +7,20 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <button type="button" id="button">Click me</button>
+    <main class="container">
+      <h1>Phishing Guard</h1>
+
+      <p class="subtitle">Paste an email or message to analyze it.</p>
+
+      <textarea
+        id="inputText"
+        placeholder="Paste your text content here..."
+      ></textarea>
+
+      <button id="analyzeButton">Analyze Text</button>
+
+      <p id="status"></p>
+    </main>
   </body>
   <script src="dist/popup.js"></script>
 </html>
