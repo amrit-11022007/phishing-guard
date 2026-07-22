@@ -1,0 +1,46 @@
+{
+    "manifest_version": 3,
+    "name": "Phishing Guard",
+    "version": "1.0.0",
+    "description": "Detect phishing in real-time",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "contextMenus",
+        "notifications",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://mail.google.com/*"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "dist/background.js",
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://mail.google.com/*"
+            ],
+            "js": [
+                "dist/content.js"
+            ],
+            "run_at": "document_idle",
+            "all_frames": true
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icons/*",
+                "sounds/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}
