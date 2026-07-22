@@ -28,19 +28,6 @@ function extractEmailData(container: HTMLElement): EmailData {
 
 let lastSubject: string | null = null;
 
-/*const observer = new MutationObserver(() => {
-  const emailContainer =
-    document.querySelector<HTMLElement>('div[role="main"]');
-  if (!emailContainer) return;
-
-  const data = extractEmailData(emailContainer);
-  if (data.subject && data.subject !== lastSubject) {
-    lastSubject = data.subject;
-    chrome.runtime.sendMessage({ type: "EMAIL_DATA", payload: data });
-  }
-}); 
-*/
-
 const observer = new MutationObserver(() => {
   const emailContainer =
     document.querySelector<HTMLElement>('div[role="main"]');
