@@ -15,25 +15,24 @@ phishing-guard/
 │   ├── src/
 │   │   ├── content.ts
 │   │   ├── background.ts
-│   │   └── popup.ts
-│   │
+│   │   ├── popup.ts
+│   │   └── definitions.ts     (shared TypeScript interfaces)
 │   │
 │   ├── load/
 │   │   ├── dist/
 │   │   │   ├── content.js
-│   │   │   ├── popup.js
-│   │   │   └── content.js
+│   │   │   ├── background.js
+│   │   │   └── popup.js
 │   │   ├── manifest.json
 │   │   ├── popup.html
-│   │   └── popup.css
-│   │
+│   │   └── style.css
 │   │
 │   ├── package.json
 │   ├── package-lock.json
 │   └── tsconfig.json
 │
-└── model/
-    └── ...
+├── mlmodel
+└── LICENSE
 ```
 
 > The exact structure may change as the project grows.
@@ -88,8 +87,10 @@ For example:
 
 ```text
 src/
+├── content.ts
+├── background.ts
 ├── popup.ts
-└── content.ts
+└── definitions.ts
 ```
 
 Chrome cannot directly execute TypeScript files. Therefore, TypeScript must be compiled into JavaScript.
@@ -101,7 +102,7 @@ src/popup.ts
 TypeScript Compiler
       │
       ▼
-dist/popup.js
+load/dist/popup.js
 ```
 
 Compile the project using:
@@ -113,7 +114,7 @@ npx tsc
 This generates JavaScript files inside:
 
 ```text
-dist/
+load/dist/
 ```
 
 After changing a TypeScript file, run:
@@ -136,28 +137,37 @@ This automatically recompiles TypeScript whenever a file changes.
 
 # TypeScript Configuration
 
-The project uses strict TypeScript checking.
-
-Important settings include:
+The project uses strict TypeScript checking. This is the current `tsconfig.json`:
 
 ```json
 {
   "compilerOptions": {
+    // File Layout
     "rootDir": "./src",
-    "outDir": "./load/dist",
+    "outDir": "load/dist",
 
-    "target": "esnext",
+    // Environment Settings
     "module": "es2020",
-
-    "lib": ["ES2020", "DOM"],
+    "target": "esnext",
+    "moduleResolution": "bundler",
     "types": ["chrome"],
+    "lib": ["ES2020", "DOM"],
 
-    "strict": true,
-
+    // Other Outputs
     "sourceMap": true,
 
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Recommended Options
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["src/**/*.ts"]
 }
 ```
 
@@ -195,6 +205,11 @@ if (emailBody) {
 
 Always prefer handling possible `null` values instead of disabling strict checking.
 
+## Why `verbatimModuleSyntax` and `noUncheckedIndexedAccess`?
+
+- `verbatimModuleSyntax` forces type-only imports to be written with `import type`, keeping compiled output clean (see `definitions.ts` imports in `content.ts`).
+- `noUncheckedIndexedAccess` treats array/object index lookups as possibly `undefined`, catching more bugs at compile time.
+
 ---
 
 # Chrome Extension Components
@@ -209,7 +224,7 @@ The popup is the UI that appears when the user clicks the extension icon.
 popup.html
     │
     ▼
-popup.js
+load/dist/popup.js
 ```
 
 Example:
@@ -235,18 +250,16 @@ To inspect it:
 
 ## Content Script
 
-The content script runs inside web pages.
-
-For example:
+The content script runs inside Gmail (`https://mail.google.com/*`), as defined in `manifest.json`.
 
 ```text
 Gmail
   │
   ▼
-content.js
+load/dist/content.js
 ```
 
-It can read information from the webpage DOM.
+It reads information from the webpage DOM and structures it using the shared `EmailData` type from `definitions.ts`.
 
 Example:
 
@@ -270,6 +283,12 @@ The content script can be used to:
 
 ---
 
+## Background Script
+
+`background.ts` is registered in `manifest.json` as the extension's service worker. It is currently empty and reserved for future work (e.g. coordinating messages between the popup and content script, or calling a phishing-analysis API).
+
+---
+
 # Building the Extension
 
 Compile TypeScript:
@@ -283,8 +302,9 @@ Make sure the compiled JavaScript files exist.
 Example:
 
 ```text
-dist/
+load/dist/
 ├── content.js
+├── background.js
 └── popup.js
 ```
 
@@ -319,7 +339,7 @@ For example:
 load/
 ├── manifest.json
 ├── popup.html
-└── dist
+└── dist/
 ```
 
 If Chrome displays an error such as:
@@ -505,15 +525,16 @@ A commit should explain what changed.
 
 # Important Files
 
-| File                 | Purpose                          |
-| -------------------- | -------------------------------- |
-| `src/`               | TypeScript source code           |
-| `dist/`              | Compiled JavaScript              |
-| `load/manifest.json` | Chrome extension configuration   |
-| `popup.html`         | Extension popup UI               |
-| `popup.css`          | Popup styling                    |
-| `package.json`       | Project dependencies and scripts |
-| `tsconfig.json`      | TypeScript configuration         |
+| File                 | Purpose                                         |
+| -------------------- | ----------------------------------------------- |
+| `src/`               | TypeScript source code                          |
+| `src/definitions.ts` | Shared TypeScript interfaces (e.g. `EmailData`) |
+| `load/dist/`         | Compiled JavaScript                             |
+| `load/manifest.json` | Chrome extension configuration                  |
+| `load/popup.html`    | Extension popup UI                              |
+| `load/style.css`     | Popup styling                                   |
+| `package.json`       | Project dependencies and scripts                |
+| `tsconfig.json`      | TypeScript configuration                        |
 
 ---
 
@@ -578,4 +599,4 @@ The normal workflow is:
 - Git
 - GitHub
 
-The project may later include a machine learning model and an API for phishing analysis.
+Phishing analysis logic (and any accompanying model/API) is not implemented yet and will be documented here once added.
