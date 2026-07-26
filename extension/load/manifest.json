@@ -11,9 +11,9 @@
         "scripting"
     ],
     "host_permissions": [
-        "https://mail.google.com/*",
-        "https://YOUR-BACKEND-URL.onrender.com/*"
-    ],
+    "https://mail.google.com/*",
+    "https://phishing-guard-87k1.onrender.com/*"
+],
     "action": {
         "default_popup": "popup.html"
     },
