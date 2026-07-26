@@ -3,7 +3,7 @@ const analyzeButton =
   document.querySelector<HTMLButtonElement>("#analyzeButton");
 const textStatus = document.querySelector<HTMLParagraphElement>("#status");
 
-const API_URL = "https://YOUR-BACKEND-URL.onrender.com/analyze";
+const API_URL = "https://phishing-guard-87k1.onrender.com/analyze";
 
 interface AnalyzeResponse {
   phishing: { isPhishing: boolean; confidence: number };
