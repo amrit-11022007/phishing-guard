@@ -1,21 +1,31 @@
 {
     "manifest_version": 3,
-    "name": "Phishing Guard",
+    "name": "Watch tower",
     "version": "1.0.0",
-    "description": "Detect phishing in real-time",
+    "description": "Detect phishing and ai generation in real-time",
+    "icons": {
+        "16": "assets/icon16.svg",
+        "32": "assets/icon32.svg",
+        "48": "assets/icon48.svg",
+        "128": "assets/icon128.svg"
+    },
     "permissions": [
-        "storage",
         "activeTab",
-        "contextMenus",
-        "notifications",
         "scripting"
     ],
     "host_permissions": [
-    "https://mail.google.com/*",
-    "https://phishing-guard-87k1.onrender.com/*"
-],
+        "https://mail.google.com/*",
+        "https://phishing-guard-87k1.onrender.com/*"
+    ],
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "assets/icon16.svg",
+            "32": "assets/icon32.svg",
+            "48": "assets/icon48.svg",
+            "128": "assets/icon128.svg"
+        },
+        "default_title": "Watchtower - Analyze Email"
     },
     "background": {
         "service_worker": "dist/background.js",

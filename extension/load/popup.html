@@ -8,16 +8,32 @@
   </head>
   <body>
     <main class="container">
-      <h1>Phishing Guard</h1>
+      <h1>WatchTower</h1>
 
-      <p class="subtitle">Paste an email or message to analyze it.</p>
+      <div class="mode-selector">
+        <label class="radio-label">
+          <input type="radio" name="mode" value="auto" checked />
+          <span>Detect Automatically</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="mode" value="manual" />
+          <span>Paste Content</span>
+        </label>
+      </div>
 
-      <textarea
-        id="inputText"
-        placeholder="Paste your text content here..."
-      ></textarea>
+      <div id="manualSection" style="display: none">
+        <textarea
+          id="inputText"
+          placeholder="Paste your text content here..."
+        ></textarea>
+        <button type="submit" id="analyzeButton">Analyze Text</button>
+      </div>
 
-      <button id="analyzeButton">Analyze Text</button>
+      <div id="autoSection">
+        <button type="button" id="autoAnalyzeButton">
+          Analyze Current Email
+        </button>
+      </div>
 
       <p id="status"></p>
     </main>
