@@ -2,7 +2,7 @@
 node_modules/
 
 # Build output
-dist/
+extension/load/dist
 
 # Environment variables / secrets
 .env
