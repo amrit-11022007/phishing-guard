@@ -2,7 +2,7 @@
 const inputText = document.querySelector("#inputText");
 const analyzeButton = document.querySelector("#analyzeButton");
 const textStatus = document.querySelector("#status");
-const API_URL = "https://YOUR-BACKEND-URL.onrender.com/analyze";
+const API_URL = "https://phishing-guard-87k1.onrender.com/analyze";
 analyzeButton?.addEventListener("click", async () => {
     const text = inputText?.value.trim();
     if (!text) {
