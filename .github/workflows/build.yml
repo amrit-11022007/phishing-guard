@@ -1,0 +1,39 @@
+name: Build extension
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'extension/src/**'
+      - 'extension/package.json'
+      - 'extension/tsconfig.json'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: extension
+        run: npm install
+
+      - name: Compile TypeScript
+        working-directory: extension
+        run: npx tsc
+
+      - name: Commit compiled JS back to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add extension/load/dist -f
+          git diff --staged --quiet || git commit -m "Auto-build: compile TypeScript [skip ci]"
+          git push
