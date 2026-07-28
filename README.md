@@ -145,7 +145,6 @@ The extension is **plain TypeScript** compiled to vanilla JS — no React, Vue, 
 ### 2. `content.ts` — runs inside Gmail
 - Sets up a `MutationObserver` on `document.body` to react as Gmail's SPA re-renders the DOM when you open a new email.
 - Extracts `senderEmail`, `senderName`, `subject`, `body`, and all `links` from the currently open thread using Gmail's DOM structure (`span[email]`, `div.a3s`, etc.).
-- Currently logs the extracted `EmailData` to the console whenever the subject changes — this is the hook future work (e.g., an automatic in-page warning banner) will build on.
 
 ### 3. `popup.ts` — the UI you interact with
 - Two modes, toggled via radio buttons:
