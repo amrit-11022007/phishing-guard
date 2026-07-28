@@ -1,8 +1,44 @@
-# Phishing Guard
+# Watch Tower
 
-A Chrome extension that analyzes email or pasted text to detect potential phishing attempts.
+- Real-time Phishing Detection: Analyzes email content and text instantly
 
-The project is being developed collaboratively using Git and GitHub. The extension is built with **TypeScript without React or any frontend framework**.
+- Stacking Ensemble Model: Leverages multiple ML algorithms for superior accuracy
+
+- Privacy-Focused: All analysis is performed securely
+
+- Minimalist UI: Clean, distraction-free interface
+
+- Lightweight: Built without heavy frontend frameworks
+
+- Developer Friendly: Written in TypeScript with clear documentation
+
+---
+
+# Project Structure
+```
+phishing-guard/
+├── extension/
+│   ├── src/                 # TypeScript source code
+│   │   ├── content.ts       # Content script
+│   │   ├── background.ts    # Background service worker
+│   │   ├── popup.ts         # Popup UI logic
+│   │   └── definitions.ts   # Shared TypeScript interfaces
+│   ├── load/                # Extension bundle
+│   │   ├── dist/           # Compiled JavaScript
+│   │   ├── manifest.json   # Chrome extension config
+│   │   ├── popup.html      # Popup UI
+│   │   ├── style.css       # Styling
+│   │   └── assets/         # Icons and images
+│   ├── package.json        # Dependencies & scripts
+│   └── tsconfig.json       # TypeScript configuration
+├── backend/                 # Backend API (if applicable)
+│   └── Procfile            # Deployment configuration
+├── mlmodel/                 # Machine learning models
+│   └── README.md           # ML model documentation
+└── .github/
+    └── workflows/          # GitHub Actions CI/CD
+        └── build.yml       # Build automation
+```
 
 ---
 
@@ -196,3 +232,10 @@ check that the path in `manifest.json` matches the actual file location.
 - CSS
 - Chrome Extension Manifest V3
 - Python
+- Stacking Ensemble
+
+## Machine Learning
+The extension uses a Stacking Ensemble Model that combines multiple ML algorithms for robust phishing detection
+- Base Models: Various classifiers (Random Forest, XGBoost, etc.)
+- Meta-Model: Logistic Regression for final prediction
+- Features: Email headers, content analysis
