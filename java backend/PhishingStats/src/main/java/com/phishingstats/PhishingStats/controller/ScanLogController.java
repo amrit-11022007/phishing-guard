@@ -16,6 +16,7 @@ public class ScanLogController {
 
     @PostMapping("/contracts")
     public ScanLogResponse saveScan(@RequestBody ScanLog log) {
+        System.out.println("slr controller entered");
         return service.save(log);
     }
 }
