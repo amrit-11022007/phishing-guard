@@ -159,7 +159,7 @@ async function getStats(req, res) {
             take: 5,
         });
         // Translate to live threat format for frontend feed
-        const liveThreats = recentThreats.map((t) => ({
+        const liveThreats = recentThreats.map((t : any) => ({
             id: t.id,
             title: t.subjectLength > 0 ? `Flagged: Subject (${t.subjectLength} chars)` : "Suspicious Paste Input",
             source: t.senderDomain || "untrusted-domain.ru",
