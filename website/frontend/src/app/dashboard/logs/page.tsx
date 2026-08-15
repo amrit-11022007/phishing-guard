@@ -44,7 +44,7 @@ export default function LogsPage() {
     try {
       const token = localStorage.getItem("token");
       
-      let url = `http://localhost:5001/api/logs?riskLevel=${riskFilter}&scanType=${typeFilter}`;
+      let url = `https://phishing-guard-apd7.onrender.com/api/logs?riskLevel=${riskFilter}&scanType=${typeFilter}`;
       if (dateFilter) {
         url += `&date=${dateFilter}`;
       }
@@ -80,7 +80,7 @@ export default function LogsPage() {
 
   // Real-time WebSockets integration
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:5001");
+    const ws = new WebSocket("ws://phishing-guard-apd7.onrender.com");
 
     ws.onmessage = (event) => {
       try {

@@ -66,7 +66,7 @@ export default function OverviewPage() {
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5001/api/stats", {
+      const res = await fetch("https://phishing-guard-apd7.onrender.com/api/stats", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -92,7 +92,7 @@ export default function OverviewPage() {
     fetchStats();
 
     // Establish WebSocket Connection for Real-Time Updates
-    const ws = new WebSocket("ws://localhost:5001");
+    const ws = new WebSocket("ws://phishing-guard-apd7.onrender.com");
     wsRef.current = ws;
 
     ws.onopen = () => {

@@ -66,7 +66,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     try {
       // 1. Send text to backend analyze endpoint
-      const res = await fetch("http://localhost:5001/analyze", {
+      const res = await fetch("https://phishing-guard-apd7.onrender.com//analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: scanText }),
@@ -90,7 +90,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       else if (aiConfidence >= 0.2) aiProbability = "likely_human";
 
       // 3. Log the scan to the database (which will also broadcast it via WebSocket)
-      const logRes = await fetch("http://localhost:5001/api/logs", {
+      const logRes = await fetch("https://phishing-guard-apd7.onrender.com/api/logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
