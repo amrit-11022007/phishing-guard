@@ -92,7 +92,7 @@ export default function OverviewPage() {
     fetchStats();
 
     // Establish WebSocket Connection for Real-Time Updates
-    const ws = new WebSocket("ws://phishing-guard-apd7.onrender.com");
+    const ws = new WebSocket("wss://phishing-guard-apd7.onrender.com");
     wsRef.current = ws;
 
     ws.onopen = () => {
