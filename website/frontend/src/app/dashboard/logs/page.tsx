@@ -80,7 +80,7 @@ export default function LogsPage() {
 
   // Real-time WebSockets integration
   useEffect(() => {
-    const ws = new WebSocket("ws://phishing-guard-apd7.onrender.com");
+    const ws = new WebSocket("wss://phishing-guard-apd7.onrender.com");
 
     ws.onmessage = (event) => {
       try {
